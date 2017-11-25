@@ -15,7 +15,8 @@ function makeQuickReply(option) {
     return {
         title: option.toLowerCase(),
         content_type: 'text',
-        payload: option.replace(/\W+/, '_').toUpperCase()
+        // payload: option.replace(/\W+/g, '_').toUpperCase()
+        payload: title
     };
 }
 
