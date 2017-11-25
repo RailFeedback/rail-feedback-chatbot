@@ -1,0 +1,15 @@
+{
+  "messaging_type": "<MESSAGING_TYPE>",
+  "recipient": {
+    "id": "<PSID>"
+  },
+  "message": {
+    "text": "hello, world!",
+    "quick_replies": [{
+        "content_type":"text",
+        "title":"<BUTTON_TEXT>",
+        "image_url":"http://example.com/img/red.png",
+        "payload":"<STRING_SENT_TO_WEBHOOK>"
+      }]
+  }
+}
