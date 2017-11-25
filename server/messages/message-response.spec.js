@@ -1,21 +1,13 @@
-import handleMessage from './messages';
+import responseMessageHandler from './message-response';
 
 test('should return toilet message object with first string response', () => {
-    const result = handleMessage("toilet", () => 0);
+    const result = responseMessageHandler("toilet", () => 0);
     expect(result.text).to.equal("What is wrong with the toilet?");
-    expect(result.quick_replies).to.have.deep.members([
-        {title: 'unclean', content_type: 'text', payload: 'UNCLEAN'},
-        {title: 'out of order', content_type: 'text', payload: 'OUT_OF_ORDER'},
-        {title: 'busy', content_type: 'text', payload: 'BUSY'}
-    ]);
+    expect(result.quick_replies.map(t => t.title)).to.have.members(['Unclean', 'Out of Order', 'Busy']);
 });
 
 test('should return toilet message object with second string response', () => {
-    const result = handleMessage("toilet", () => 1);
+    const result = responseMessageHandler("toilet", () => 1);
     expect(result.text).to.equal("What is up with the toilet?");
-    expect(result.quick_replies).to.have.deep.members([
-        {title: 'unclean', content_type: 'text', payload: 'UNCLEAN'},
-        {title: 'out of order', content_type: 'text', payload: 'OUT_OF_ORDER'},
-        {title: 'busy', content_type: 'text', payload: 'BUSY'}
-    ]);
+    expect(result.quick_replies.map(t => t.title)).to.have.members(['Unclean', 'Out of Order', 'Busy']);
 });

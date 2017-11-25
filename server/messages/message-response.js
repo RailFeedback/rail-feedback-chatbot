@@ -1,7 +1,7 @@
 const S = require('string');
 
 // Reformat options.json, make is easier to program with but keep simple definition
-const options = require('../data/options.json').reduce((opts, option) => {
+const options = require('../../data/options.json').reduce((opts, option) => {
     option.topics.forEach((topic) => {
         opts[topic] = option;
     });
@@ -9,14 +9,14 @@ const options = require('../data/options.json').reduce((opts, option) => {
     return opts;
 }, {});
 
-const responses = require('../data/responses.json');
+const responses = require('../../data/responses.json');
 
 function makeQuickReply(option) {
     return {
-        title: option.toLowerCase(),
+        title: option,
         content_type: 'text',
         // payload: option.replace(/\W+/g, '_').toUpperCase()
-        payload: title
+        payload: option
     };
 }
 
@@ -31,7 +31,7 @@ function getRandom(max) {
  * @param random function to randomly choose index of response from list of responses
  * @return {object} message object
  */
-let handleMessage = function (message, random = getRandom) {
+let responseMessageHandler = function (message, random = getRandom) {
     let parseResponse = function (option) {
         let poss_strings = responses[option['type']];
         if (!poss_strings) {
@@ -64,4 +64,4 @@ let handleMessage = function (message, random = getRandom) {
     }
 };
 
-module.exports = handleMessage;
+module.exports = responseMessageHandler;
