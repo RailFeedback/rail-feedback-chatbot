@@ -11,11 +11,26 @@ const options = require('../data/options.json').reduce((opts, option) => {
 
 const responses = require('../data/responses.json');
 
+function makeQuickReply(option) {
+    return {
+        title: option.toLowerCase(),
+        content_type: 'text',
+        payload: option.replace(/\W+/, '_').toUpperCase()
+    };
+}
+
 function getRandom(max) {
     return Math.floor(Math.random() * max);
 }
 
-let handleMessage = function (message,random=getRandom) {
+/**
+ * Given a message string from a facebook chat, create the appropriate response object
+ *
+ * @param message input message from chat
+ * @param random function to randomly choose index of response from list of responses
+ * @return {object} message object
+ */
+let handleMessage = function (message, random = getRandom) {
     let parseResponse = function (option) {
         let poss_strings = responses[option['type']];
         if (!poss_strings) {
@@ -30,15 +45,21 @@ let handleMessage = function (message,random=getRandom) {
         }
         let index = random(poss_strings.length);
         let response_string = poss_strings[index];
-
         return response_string.replace('{{topic}}', message)
     };
     // if a message is a quick reply, handle quickly
     let option = options[message];
     if (option) {
-        return parseResponse(option)
+        message = parseResponse(option)
     } else {// nothing fancy,
-        return 'Can you tell us more?'
+        message = 'Can you tell us more?';
+        option = {};
+        option.options = []
+    }
+
+    return {
+        text: message,
+        quick_replies: option['options'].map(makeQuickReply)
     }
 };
 
