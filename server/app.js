@@ -21,20 +21,20 @@ const webhook = new Webhook();
 
 // Configure middleware
 // if (config.debug) app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 
 // Configure resources
-app.get('/',(req,res) => res.send('Hello World'));
+app.get('/', (req, res) => res.send('Hello World'));
 
 // Now lets setup the webhook
-app.post('/webhook',webhook.request.bind(webhook));
+app.post('/webhook', webhook.request.bind(webhook));
 
-const server = app.listen(PORT,function(){
-	const address = server.address();
-	const link = `http://localhost:${address.port}/`;
-	console.log('Server running at',link);
+const server = app.listen(PORT, function () {
+    const address = server.address();
+    const link = `http://localhost:${address.port}/`;
+    console.log('Server running at', link);
 });
 
 export default app;

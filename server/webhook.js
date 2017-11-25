@@ -1,7 +1,8 @@
 class Webhook {
-    constructor(){
+    constructor() {
     }
-    async request(req,res){
+
+    async request(req, res) {
         console.log(req.body);
         res.json({})
     }

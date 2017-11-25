@@ -1,56 +1,118 @@
 [
-
   {
     "type": "noun",
-    "topics": ["toilet","toilets"],
-    "options": ["Unclean","Out of Order","Busy"]
+    "topics": [
+      "toilet",
+      "toilets"
+    ],
+    "options": [
+      "Unclean",
+      "Out of Order",
+      "Busy"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["thermostat","thermostats"],
-    "options": ["Too hot","Too cold"]
+    "topics": [
+      "thermostat",
+      "thermostats"
+    ],
+    "options": [
+      "Too hot",
+      "Too cold"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["wifi","internet"],
-    "options": ["Weak signal","No wifi available","Slow connection"]
+    "topics": [
+      "wifi",
+      "internet"
+    ],
+    "options": [
+      "Weak signal",
+      "No wifi available",
+      "Slow connection"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["socket","sockets"],
-    "options": ["None available","Not working"]
+    "topics": [
+      "socket",
+      "sockets"
+    ],
+    "options": [
+      "None available",
+      "Not working"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["rubbish","rubbish"],
-    "options": ["Bins overflowing"]
+    "topics": [
+      "rubbish",
+      "rubbish"
+    ],
+    "options": [
+      "Bins overflowing"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["seat","seats"],
-    "options": ["None available"]
+    "topics": [
+      "seat",
+      "seats"
+    ],
+    "options": [
+      "None available"
+    ]
   },
   {
     "type": "noun",
-    "topics": ["website"],
-    "options": ["Cannot book","No live updates"]
+    "topics": [
+      "website"
+    ],
+    "options": [
+      "Cannot book",
+      "No live updates"
+    ]
   },
   {
     "type": "custom",
-    "topics": ["staff","guard"],
-    "responses": ["What happend?"],
-    "options": ["Rude","Unhelpful","Unavailable"]
+    "topics": [
+      "staff",
+      "guard"
+    ],
+    "responses": [
+      "What happend?"
+    ],
+    "options": [
+      "Rude",
+      "Unhelpful",
+      "Unavailable"
+    ]
   },
   {
     "type": "custom",
-    "topics": ["cancelled"],
-    "responses": ["Sorry to hear that, try this compensation link?"],
+    "topics": [
+      "cancelled"
+    ],
+    "responses": [
+      "Sorry to hear that, try this compensation link?"
+    ],
     "link": "{{link from provider}}"
   },
   {
     "type": "custom",
-    "topics": ["delay","delayed","late"],
-    "responses": ["How late is your train?"],
-    "options": ["Less than an hour","An hour or more"]
+    "topics": [
+      "delay",
+      "delayed",
+      "late"
+    ],
+    "responses": [
+      "How late is your train?"
+    ],
+    "options": [
+      "Less than an hour",
+      "An hour or more"
+    ]
   }
 ]
