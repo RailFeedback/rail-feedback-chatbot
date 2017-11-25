@@ -29,7 +29,8 @@ app.use(cors());
 app.get('/', (req, res) => res.send('Hello World'));
 
 // Now lets setup the webhook
-app.post('/webhook', webhook.request.bind(webhook));
+app.get('/webhook',webhook.get.bind(webhook));
+app.post('/webhook',webhook.post.bind(webhook));
 
 const server = app.listen(PORT, function () {
     const address = server.address();
