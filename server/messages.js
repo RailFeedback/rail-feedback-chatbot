@@ -15,7 +15,7 @@ function getRandom(max) {
     return Math.floor(Math.random() * max);
 }
 
-let handleMessage = function (message) {
+let handleMessage = function (message,random=getRandom) {
     let parseResponse = function (option) {
         let poss_strings = responses[option['type']];
         if (!poss_strings) {
@@ -28,7 +28,7 @@ let handleMessage = function (message) {
                 throw new Error("Could not find response string to format, message: " + message + "; type: " + option['type'])
             }
         }
-        let index = getRandom(poss_strings.length);
+        let index = random(poss_strings.length);
         let response_string = poss_strings[index];
 
         return response_string.replace('{{topic}}', message)
