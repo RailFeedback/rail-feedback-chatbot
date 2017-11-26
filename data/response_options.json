@@ -36,7 +36,7 @@
   },
   {
     "type": "custom",
-    "topics": ["staff","guard"],
+    "topics": ["staff","guard","manager"],
     "responses": ["What happend?"],
     "quick_replies": ["Rude","Unhelpful","Unavailable"]
   },
