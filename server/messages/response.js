@@ -15,6 +15,7 @@ const types = require('../../data/response_types.json');
  * Given a message string from a facebook chat, create the appropriate response object
  *
  * @param message input message from chat
+ * @param fcns {object} functions provided to interface with the database
  * @return {object} message object
  */
 async function responseMessageHandler(message, fcns) {
@@ -23,6 +24,8 @@ async function responseMessageHandler(message, fcns) {
     if (option) {
         await fcns.word_conversion(message);
         return {message: make.message(make.response(message, option, types), option['quick_replies']), completed: true}
+    } else if (message.toLowerCase().contains("fire")) {// edge case
+        return {messagae: make.message("Please contact the emergency services immediately!"), completed: true}
     } else {// nothing fancy,
         return {message: make.message("Can you tell us more?"), completed: true}
     }
