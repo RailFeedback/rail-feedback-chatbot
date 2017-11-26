@@ -49,29 +49,20 @@ class Webhook {
           const word_conversion = this.scorer.word_conversion.bind(this.scorer);
           const methods = { words_getter, word_conversion };
           // Receive the message and handle user creation
-          console.log('USER',user);
-          console.log('MESSAGE',message);
           const { user, message } = await receiver.receive(event.sender.id,event.message);
-          // Handle message
-          const handle = async () => {
-            if (message.text === "RESET") {
-              user.state = 1;
-              await user.save();
-              return;
-            }
-            // Send the reponse to the user
-            let response = await handler(user.state,message.text,methods);
-            await sender.send(user.psid,response.message);
-            return response;
-          }
-          // Loop to allow all messages from handlers to send
-          for (let i=0; i<2; i++){
-            let response = await handle();
-            if (response.next) user.state += 1;
-            else if (response.completed) user.state = 4;
+          if (message.text === "RESET") {
+            user.state = 1;
             await user.save();
-            if (!response.previous) break;
+            return;
           }
+          console.log('MESSAGE',message);
+          console.log('USER',user);
+          // Handle message
+          let response = await handler(user.state,message.text,methods);
+          await sender.send(user.psid,response.message);
+          if (response.next) user.state += 1;
+          else if (response.completed) user.state = 4;
+          await user.save();
         }
         // Returns a '200 OK' response to all requests
         res.status(200).send('EVENT_RECEIVED');
