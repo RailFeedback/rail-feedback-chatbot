@@ -1,4 +1,4 @@
-import make from './message-make.js';
+import make from './message-make';
 
 const types = require('../../data/feedback_types.json');
 

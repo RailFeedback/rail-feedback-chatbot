@@ -1,4 +1,4 @@
-import responseMessageHandler from './message-response';
+import responseMessageHandler from './response';
 
 test('should return toilet message object', () => {
     const result = responseMessageHandler("toilet");

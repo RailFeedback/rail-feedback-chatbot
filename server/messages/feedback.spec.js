@@ -1,4 +1,4 @@
-import feedbackMessageHandler from './message-feedback';
+import feedbackMessageHandler from './feedback';
 
 test('should return no feedback response', () => {
     const result = feedbackMessageHandler('no');
