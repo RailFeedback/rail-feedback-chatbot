@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node server",
     "test": "jest",
-    "tdd": "nodemon jest",
+    "tdd": "nodemon ./node_modules/jest/bin/jest.js",
     "dev": "export $(cat .env) && nodemon server"
   },
   "author": "Henry Miskin",
@@ -46,7 +46,8 @@
       "node_modules"
     ],
     "testMatch": [
-      "<rootDir>/server/**/(*.)integration.js?(x)"
+      "<rootDir>/server/**/*.spec.js",
+      "<rootDir>/server/**/*.integration.js"
     ]
   }
 }

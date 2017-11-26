@@ -5,8 +5,9 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import seed from './seed';
-import models from './models';
 import Webhook from './webhook';
+import { Word } from './models';
+import Scorer from './analysis/scorer';
 
 const PORT = process.env.PORT || '8888';
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rail-bot';
@@ -26,6 +27,7 @@ const main = async () => {
 
   // Seed data and access default operator and trip
   const { gwr, london_swindon } = await seed();
+  const scorer = new Scorer(gwr,london_swindon);
   const webhook = new Webhook(gwr,london_swindon);
 
   // Configure middleware
@@ -43,7 +45,8 @@ const main = async () => {
 
   // API for words
   app.get('/words', async (req,res) => {
-    const words = await models.Words.find().exec();
+    let words = await scorer.word_finder();
+    words = words.sort((a,b) => scorer.score(b) - scorer.score(a));
     res.json(words);
   });
 

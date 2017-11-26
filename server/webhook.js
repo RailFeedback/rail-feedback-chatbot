@@ -1,9 +1,9 @@
 import { User, Message, Word } from './models';
 import { Sender, Receiver } from './messenger';
+import Scorer from './analysis/scorer';
 import handler from './messages';
-import Scorer from './scorer';
 
-const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN || '';
 
 const sender = new Sender();
 const receiver = new Receiver();
@@ -20,7 +20,6 @@ class Webhook {
       let mode = req.query['hub.mode'];
       let token = req.query['hub.verify_token'];
       let challenge = req.query['hub.challenge'];
-      console.log(mode,token,challenge);
       // Checks if a token and mode is in the query string of the request
       if (mode && token) {
         // Checks the mode and token sent is correct
@@ -36,6 +35,7 @@ class Webhook {
     }
     async post(req,res){
       let body = req.body;
+      console.log(req.url);
       // Checks this is an event from a page subscription
       if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched
@@ -43,7 +43,6 @@ class Webhook {
           // Gets the message. entry.messaging is an array, but
           // will only ever contain one message, so we get index 0
           const event = entry.messaging[0];
-          console.log('EVENT',event,sender);
           // sender.send(event.sender.id,{text:'Hello my friend'});
           const words_getter = this.scorer.words_getter.bind(this.scorer);
           const word_conversion = this.scorer.word_conversion.bind(this.scorer);
@@ -55,8 +54,6 @@ class Webhook {
             await user.save();
             return;
           }
-          console.log('MESSAGE',message);
-          console.log('USER',user);
           // Handle message
           let response = await handler(user.state,message.text,methods);
           await sender.send(user.psid,response.message);

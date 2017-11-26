@@ -1,23 +1,7 @@
 import request from 'supertest';
-// import mongoose from 'mongoose';
-// import mockgoose from 'mockgoose';
 
 import app from './app';
 import { Message, Operator, Trip, User, Word } from './models';
-
-// beforeAll(function(done) {
-//   mockgoose(mongoose).then(() => mongoose.connect('',done))
-// });
-//
-//
-// afterEach(function() {
-//     mockgoose.reset();
-// });
-//
-// afterAll(function() {
-//     mongoose.connection.close();
-//     // mockgoose.
-// });
 
 beforeEach( async () => {
   await app.started;
