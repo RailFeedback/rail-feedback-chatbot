@@ -23,9 +23,9 @@ function responseMessageHandler(message) {
     // if a message is a quick reply, handle quickly
     let option = options[message];
     if (option) {
-        return make.message(make.response(message, option, types), option['quick_replies'])
+        return {message: make.message(make.response(message, option, types), option['quick_replies']), completed: true}
     } else {// nothing fancy,
-        return makeMessage("Can you tell us more?")
+        return {message: makeMessage("Can you tell us more?"), completed: true}
     }
 }
 
