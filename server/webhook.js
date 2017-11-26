@@ -1,11 +1,12 @@
 import { User, Message, Word } from './models';
-import { Sender, Reciever } from './messenger';
+import { Sender, Receiver } from './messenger';
+import handler from './messages';
 import Scorer from './scorer';
 
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
 const sender = new Sender();
-const reteciever = new Reciever();
+const receiver = new Receiver();
 
 const message_sender = (psid) => (message) => sender.send(message);
 
@@ -38,28 +39,36 @@ class Webhook {
       // Checks this is an event from a page subscription
       if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched
-        body.entry.forEach(function(entry) {
+        for (let entry of body.entry){
           // Gets the message. entry.messaging is an array, but
           // will only ever contain one message, so we get index 0
           const event = entry.messaging[0];
           console.log('EVENT',event,sender);
           // sender.send(event.sender.id,{text:'Hello my friend'});
-          const words_getter = scorer.words_getter.bind(scorer);
-          const word_conversion = scorer.word_conversion.bind(scorer);
+          const words_getter = this.scorer.words_getter.bind(this.scorer);
+          const word_conversion = this.scorer.word_conversion.bind(this.scorer);
           const methods = { words_getter, word_conversion };
-          // Recieve the message and handle user creation
-          const { user, message } = reciever.recieve(event.sender.id,event.message);
+          // Receive the message and handle user creation
+          const { user, message } = await receiver.receive(event.sender.id,event.message);
+          console.log('USER',user);
+          console.log('MESSAGE',message);
           // Handle message
-          const handle = () => {
-            let { message, next, previous, completed } = handler(user.rank,message.text,methods);
-            sender.send(user.psid,message);
+          const handle = async () => {
+            if (message.text === "RESET") {
+              user.state = 1;
+              await user.save();
+              return;
+            }
+            let response = await handler(user.state,message.text,methods);
+            await sender.send(user.psid,response.message);
             // Send the reponse to the user
-            if (previous) handle();
-            else if (next) user.rank += 1;
-            else if (completed) user.rank = 0;
+            if (response.previous) await handle();
+            else if (response.next) user.state += 1;
+            else if (response.completed) user.state = 4;
+            await user.save();
           }
-          handle();
-        });
+          await handle();
+        }
         // Returns a '200 OK' response to all requests
         res.status(200).send('EVENT_RECEIVED');
       } else {

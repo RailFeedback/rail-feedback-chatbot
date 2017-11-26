@@ -17,11 +17,11 @@ const word = new mongoose.Schema({
   },
   impressions: {
     type: Number,
-    default: 0
+    default: 1
   },
   conversions: {
     type: Number,
-    default: 0
+    default: 1
   },
   rank: Number
 });

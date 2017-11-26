@@ -1,7 +1,5 @@
 import make from './message-make.js';
 
-const S = require('string');
-
 // Reformat response_options.json, make is easier to program with but keep simple definition
 const options = require('../../data/response_options.json').reduce((opts, option) => {
     option.topics.forEach((topic) => {
@@ -26,7 +24,7 @@ async function responseMessageHandler(message, fcns) {
         await fcns.word_conversion(message);
         return {message: make.message(make.response(message, option, types), option['quick_replies']), completed: true}
     } else {// nothing fancy,
-        return {message: makeMessage("Can you tell us more?"), completed: true}
+        return {message: make.message("Can you tell us more?"), completed: true}
     }
 }
 

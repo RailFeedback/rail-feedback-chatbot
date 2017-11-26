@@ -7,6 +7,7 @@ class Sender {
     this.url = `https://graph.facebook.com/v2.6/me/messages?access_token=${FACEBOOK_TOKEN}`
   }
   async send(psid,message){
+    console.log('SEND',psid,message);
     const data = {
       recipient: { id:psid },
       messaging_type: 'RESPONSE',

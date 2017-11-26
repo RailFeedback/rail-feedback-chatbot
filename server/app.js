@@ -11,6 +11,9 @@ import Webhook from './webhook';
 const PORT = process.env.PORT || '8888';
 const MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rail-bot';
 
+// Create express app
+const app = express();
+
 const main = async () => {
 
   // Connect to MongoDB
@@ -20,9 +23,6 @@ const main = async () => {
     console.error('MongoDB connection error: ' + err);
     process.exit(-1);
   });
-
-  // Create express app
-  const app = express();
 
   // Seed data and access default operator and trip
   const { gwr, london_swindon } = await seed();
@@ -49,4 +49,7 @@ const main = async () => {
 
 }
 
-export default module.exports = main;
+app.started = main();
+app.started.catch((error) => console.log(error));
+
+export default module.exports = app;

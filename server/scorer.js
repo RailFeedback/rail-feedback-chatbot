@@ -13,7 +13,7 @@ class Scorer {
     let words = await Word.find({ operator: this.operator, trip: this.trip }).exec();
     // Sort words by their score and select top three
     // TODO make this random select not just top scoring
-    words = words.sort((a,b) => score(a) - score(b)).slice(0,3);
+    words = words.sort((a,b) => score(b) - score(a)).slice(0,3);
     // Increment the impressions of the selected words
     await Promise.all(words.map((word) => {
       word.inpressions += 1;
