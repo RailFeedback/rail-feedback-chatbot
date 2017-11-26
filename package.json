@@ -25,6 +25,22 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "jest": "^21.2.1",
     "nodemon": "^1.12.1"
+  },
+  "jest": {
+    "verbose": true,
+    "setupTestFrameworkScriptFile": "./testing/setup.js",
+    "moduleNameMapper": {
+      "\\.(css|sss)$": "jest-css-modules"
+    },
+    "testPathIgnorePatterns": [
+      "dist",
+      "node_modules"
+    ],
+    "testMatch": [
+      "<rootDir>/server/**/(*.)spec.js?(x)"
+    ]
   }
 }
