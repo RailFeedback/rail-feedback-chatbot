@@ -37,6 +37,8 @@ const main = async () => {
 
   await Promise.all(words.map((word) => word.save()));
 
+  return { gwr, london_swindon };
+
 }
 
 export default main;

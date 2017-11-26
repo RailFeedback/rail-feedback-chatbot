@@ -11,6 +11,10 @@ const message = new mongoose.Schema({
   text: String,
   quick_reply: {
     payload: String,
+  },
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
 

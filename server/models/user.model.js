@@ -7,7 +7,11 @@ const user = new mongoose.Schema({
   first_name: String,
   last_name: String,
   profile_pic: String,
-  gender: String
+  gender: String,
+  state: {
+    type: Number,
+    default: 0
+  }
 });
 
 export default mongoose.model('User', user);
