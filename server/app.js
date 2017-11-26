@@ -2,27 +2,34 @@ import cors from 'cors';
 import morgan from 'morgan';
 import express from 'express';
 import bodyParser from 'body-parser';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
+import seed from './seed';
+import models from './models';
 import Webhook from './webhook';
 
 const PORT = process.env.PORT || '8888';
+const MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rail-bot';
 
-// // Connect to MongoDB
-// mongoose.connect(config.mongo.uri,{ useMongoClient: true });
-// mongoose.connection.on('error', function(err) {
-//   console.error('MongoDB connection error: ' + err);
-//   process.exit(-1);
-// });
+// Connect to MongoDB
+mongoose.Promise = Promise;
+mongoose.connect(MONGOLAB_URI,{ useMongoClient: true });
+mongoose.connection.on('error', function(err) {
+  console.error('MongoDB connection error: ' + err);
+  process.exit(-1);
+});
+
+// Seed data
+seed();
 
 // Create express app
 const app = express();
 const webhook = new Webhook();
 
 // Configure middleware
-// if (config.debug) app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 app.use(cors());
 
 // Configure resources
