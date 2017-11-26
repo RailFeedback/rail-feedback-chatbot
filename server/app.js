@@ -9,7 +9,7 @@ import models from './models';
 import Webhook from './webhook';
 
 const PORT = process.env.PORT || '8888';
-const MONGOLAB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/rail-bot';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rail-bot';
 
 // Create express app
 const app = express();
@@ -18,7 +18,7 @@ const main = async () => {
 
   // Connect to MongoDB
   mongoose.Promise = Promise;
-  mongoose.connect(MONGOLAB_URI,{ useMongoClient: true });
+  mongoose.connect(MONGODB_URI,{ useMongoClient: true });
   mongoose.connection.on('error', function(err) {
     console.error('MongoDB connection error: ' + err);
     process.exit(-1);
@@ -40,6 +40,12 @@ const main = async () => {
   // Now lets setup the webhook
   app.get('/webhook',webhook.get.bind(webhook));
   app.post('/webhook',webhook.post.bind(webhook));
+
+  // API for words
+  app.get('/words', async (req,res) => {
+    const words = await models.Words.find().exec();
+    res.json(words);
+  });
 
   const server = app.listen(PORT,function(){
     const address = server.address();
