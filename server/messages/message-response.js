@@ -1,3 +1,5 @@
+import makeMessage from './message-make.js';
+
 const S = require('string');
 
 // Reformat options.json, make is easier to program with but keep simple definition
@@ -11,15 +13,6 @@ const options = require('../../data/options.json').reduce((opts, option) => {
 
 const responses = require('../../data/responses.json');
 
-function makeQuickReply(option) {
-    return {
-        title: option,
-        content_type: 'text',
-        // payload: option.replace(/\W+/g, '_').toUpperCase()
-        payload: option
-    };
-}
-
 function getRandom(max) {
     return Math.floor(Math.random() * max);
 }
@@ -31,7 +24,7 @@ function getRandom(max) {
  * @param random function to randomly choose index of response from list of responses
  * @return {object} message object
  */
-let responseMessageHandler = function (message, random = getRandom) {
+function responseMessageHandler(message, random = getRandom) {
     let parseResponse = function (option) {
         let poss_strings = responses[option['type']];
         if (!poss_strings) {
@@ -51,17 +44,10 @@ let responseMessageHandler = function (message, random = getRandom) {
     // if a message is a quick reply, handle quickly
     let option = options[message];
     if (option) {
-        message = parseResponse(option)
+        return makeMessage(parseResponse(option), option['options'])
     } else {// nothing fancy,
-        message = 'Can you tell us more?';
-        option = {};
-        option.options = []
+        return makeMessage("Can you tell us more?")
     }
-
-    return {
-        text: message,
-        quick_replies: option['options'].map(makeQuickReply)
-    }
-};
+}
 
 module.exports = responseMessageHandler;
