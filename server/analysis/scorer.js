@@ -21,13 +21,11 @@ class Scorer {
     let words = await this.word_finder();
     // Sort all the words by their score
     words = words.sort((a,b) => this.score(b) - this.score(a));
-    console.log(words);
     // Create a collection of buckets for storing
     let buckets = words.reduce((buckets,word,index) => {
       buckets[index] = this.score(word) + (buckets[index-1] || 0);
       return buckets;
     },[]);
-    console.log(words.length,buckets.length);
     // Collect samples using probability
     let sample = [];
     const maximum = buckets[buckets.length-1];
@@ -43,7 +41,6 @@ class Scorer {
         sample.push(selection);
       }
     }
-    console.log(sample);
     // Increment the impressions of the selected words
     await Promise.all(sample.map((word) => {
       word.impressions += 1;
