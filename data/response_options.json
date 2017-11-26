@@ -1,0 +1,55 @@
+[
+  {
+    "type": "noun",
+    "topics": ["toilet","toilets"],
+    "quick_replies": ["Unclean","Out of Order","Busy"]
+  },
+  {
+    "type": "noun",
+    "topics": ["thermostat","thermostats"],
+    "quick_replies": ["Too hot","Too cold"]
+  },
+  {
+    "type": "noun",
+    "topics": ["wifi","internet"],
+    "quick_replies": ["Weak signal","No wifi available","Slow connection"]
+  },
+  {
+    "type": "noun",
+    "topics": ["socket","sockets"],
+    "quick_replies": ["None available","Not working"]
+  },
+  {
+    "type": "noun",
+    "topics": ["rubbish","rubbish"],
+    "quick_replies": ["Bins overflowing"]
+  },
+  {
+    "type": "noun",
+    "topics": ["seat","seats"],
+    "quick_replies": ["None available"]
+  },
+  {
+    "type": "noun",
+    "topics": ["website"],
+    "quick_replies": ["Cannot book","No live updates"]
+  },
+  {
+    "type": "custom",
+    "topics": ["staff","guard"],
+    "responses": ["What happend?"],
+    "quick_replies": ["Rude","Unhelpful","Unavailable"]
+  },
+  {
+    "type": "custom",
+    "topics": ["cancelled"],
+    "responses": ["Sorry to hear that, try this compensation link?"],
+    "link": "{{link from provider}}"
+  },
+  {
+    "type": "custom",
+    "topics": ["delay","delayed","late"],
+    "responses": ["How late is your train?"],
+    "quick_replies": ["Less than an hour","An hour or more"]
+  }
+]
