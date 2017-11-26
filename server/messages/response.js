@@ -19,10 +19,11 @@ const types = require('../../data/response_types.json');
  * @param message input message from chat
  * @return {object} message object
  */
-function responseMessageHandler(message) {
+async function responseMessageHandler(message, fcns) {
     // if a message is a quick reply, handle quickly
     let option = options[message];
     if (option) {
+        await fcns.word_conversion(message);
         return {message: make.message(make.response(message, option, types), option['quick_replies']), completed: true}
     } else {// nothing fancy,
         return {message: makeMessage("Can you tell us more?"), completed: true}

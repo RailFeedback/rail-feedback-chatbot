@@ -2,9 +2,9 @@ import make from './message-make';
 
 const types = require('../../data/feedback_types.json');
 
-let feedbackMessageHandler = function (message) {
+let feedbackMessageHandler = async function (message, fcns) {
     if (message === 'yes') {
-        let rand_options = ['toilet', 'lights', 'late'];
+        let rand_options = await fcns.words_getter();
         let reply = make.message("Sorry to hear that, is it any of these? Or tell us your own", rand_options);
         return {message: reply, next: true}
     } else if (message === 'no') {
