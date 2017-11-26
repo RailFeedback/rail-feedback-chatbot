@@ -54,6 +54,11 @@ class Webhook {
           console.log('MESSAGE',message);
           // Handle message
           const handle = async () => {
+            if (message.text === "RESET") {
+              user.state = 1;
+              await user.save();
+              return;
+            }
             let response = await handler(user.state,message.text,methods);
             await sender.send(user.psid,response.message);
             // Send the reponse to the user
