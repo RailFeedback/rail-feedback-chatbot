@@ -10,7 +10,7 @@ const user = new mongoose.Schema({
   gender: String,
   state: {
     type: Number,
-    default: 0
+    default: 1
   }
 });
 

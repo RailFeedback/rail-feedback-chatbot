@@ -7,11 +7,10 @@ function makeQuickReply(option) {
     };
 }
 
-function makeMessage(message, options = []) {
-    return {
-        text: message,
-        quick_replies: options.map(makeQuickReply)
-    }
+function makeMessage(text, options = []) {
+    let message = { text: text };
+    if (options.length) message.quick_replies = options.map(makeQuickReply)
+    return message;
 }
 
 function getRandom(max) {

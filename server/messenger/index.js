@@ -1,5 +1,5 @@
 import Profile from './profile';
-import Reciever from './receiver';
+import Receiver from './receiver';
 import Sender from './sender';
 
-export { Profile, Reciever, Sender };
+export { Profile, Receiver, Sender };

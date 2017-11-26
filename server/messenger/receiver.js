@@ -1,15 +1,16 @@
 import Profile from './profile';
 import { User, Message } from '../models';
 
-class Reciever {
-  async recieve(psid,message){
+class Receiver {
+  async receive(psid,message){
     // Create a profile object to get FB data if needed
     const profile = new Profile(psid);
     // Attempt to get the user from the database
     let user = await User.findOne({ psid }).exec();
     // if the user does not exist get profile information
     if (!user){
-      user = new User(await profile.get());
+      let details = await profile.get();
+      user = new User({ psid, ...details });
       await user.save();
     }
     // Now we have an existing user get the most recent message
@@ -20,8 +21,9 @@ class Reciever {
     message = new Message({ ...message });
     await message.save();
     // Return the message and state
+    console.log(user);
     return { user, message };
   }
 }
 
-export default Reciever;
+export default Receiver;

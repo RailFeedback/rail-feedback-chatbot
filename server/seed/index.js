@@ -11,12 +11,14 @@ const hoursDeltaDate = (hours) => new Date(
 
 const main = async () => {
 
+  await Operator.remove({});
   const gwr = new Operator({
     name: 'GWR'
   });
 
   await gwr.save();
 
+  await Trip.remove({});
   const london_swindon = new Trip({
     operator: gwr,
     start_station: 'PAD',
