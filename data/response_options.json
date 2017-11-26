@@ -2,43 +2,43 @@
   {
     "type": "noun",
     "topics": ["toilet","toilets"],
-    "options": ["Unclean","Out of Order","Busy"]
+    "quick_replies": ["Unclean","Out of Order","Busy"]
   },
   {
     "type": "noun",
     "topics": ["thermostat","thermostats"],
-    "options": ["Too hot","Too cold"]
+    "quick_replies": ["Too hot","Too cold"]
   },
   {
     "type": "noun",
     "topics": ["wifi","internet"],
-    "options": ["Weak signal","No wifi available","Slow connection"]
+    "quick_replies": ["Weak signal","No wifi available","Slow connection"]
   },
   {
     "type": "noun",
     "topics": ["socket","sockets"],
-    "options": ["None available","Not working"]
+    "quick_replies": ["None available","Not working"]
   },
   {
     "type": "noun",
     "topics": ["rubbish","rubbish"],
-    "options": ["Bins overflowing"]
+    "quick_replies": ["Bins overflowing"]
   },
   {
     "type": "noun",
     "topics": ["seat","seats"],
-    "options": ["None available"]
+    "quick_replies": ["None available"]
   },
   {
     "type": "noun",
     "topics": ["website"],
-    "options": ["Cannot book","No live updates"]
+    "quick_replies": ["Cannot book","No live updates"]
   },
   {
     "type": "custom",
     "topics": ["staff","guard"],
     "responses": ["What happend?"],
-    "options": ["Rude","Unhelpful","Unavailable"]
+    "quick_replies": ["Rude","Unhelpful","Unavailable"]
   },
   {
     "type": "custom",
@@ -50,6 +50,6 @@
     "type": "custom",
     "topics": ["delay","delayed","late"],
     "responses": ["How late is your train?"],
-    "options": ["Less than an hour","An hour or more"]
+    "quick_replies": ["Less than an hour","An hour or more"]
   }
 ]

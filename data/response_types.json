@@ -1,6 +1,6 @@
 {
   "noun": [
-    "What is wrong with the {{topic}}?",
-    "What is up with the {{topic}}?"
+    "What is wrong with the {{}}?",
+    "What is up with the {{}}?"
   ]
 }
